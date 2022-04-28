@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ITasks{
+interface ITasks {
     id: number,
     title: string,
     isDone: boolean
@@ -16,13 +16,13 @@ function ToDolist(props: IProps) {
         <div>
             <h3>{props.titleName}</h3>
             <div>
-                <input />
-                <button>+</button>
+                <input type="text" aria-label="Search"/>
+                    <button>+</button>
             </div>
             <ul>
-                <li><input type="checkbox" checked={true} /> <span>{props.tasks[0].title}</span></li>
-                <li><input type="checkbox" checked={true} /> <span>{props.tasks[1].title}</span></li>
-                <li><input type="checkbox" checked={false} /> <span>{props.tasks[2].title}</span></li>
+                <li><input type="checkbox" aria-label="Search" checked={true} /> <span>{props.tasks[0].title}</span></li>
+                <li><input type="checkbox" aria-label="Search" checked={true} /> <span>{props.tasks[1].title}</span></li>
+                <li><input type="checkbox" aria-label="Search" checked={false} /> <span>{props.tasks[2].title}</span></li>
             </ul>
             <div>
                 <button>All</button>
