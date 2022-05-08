@@ -1,4 +1,5 @@
 import React from "react";
+import { FilterType } from "../App";
 
 interface ITasks {
     id: number,
@@ -9,25 +10,37 @@ interface ITasks {
 interface IProps {
     titleName: string,
     tasks: Array<ITasks>
+    removeTask: (id: number) => void
+    changeFilter: (value: FilterType) => void
 };
 
 function ToDolist(props: IProps) {
+    const itemList = props.tasks.map((element) => {
+        return (
+            <li>
+                <input type="checkbox" aria-label="Search" checked={element.isDone} />
+                <span>{element.title}</span>
+                <button onClick={() => props.removeTask(element.id)}>Delete</button>
+            </li>
+        );
+    })
+
+
+
     return (
         <div>
             <h3>{props.titleName}</h3>
             <div>
-                <input type="text" aria-label="Search"/>
-                    <button>+</button>
+                <input type="text" aria-label="Search" />
+                <button>+</button>
             </div>
             <ul>
-                <li><input type="checkbox" aria-label="Search" checked={true} /> <span>{props.tasks[0].title}</span></li>
-                <li><input type="checkbox" aria-label="Search" checked={true} /> <span>{props.tasks[1].title}</span></li>
-                <li><input type="checkbox" aria-label="Search" checked={false} /> <span>{props.tasks[2].title}</span></li>
+                {itemList}
             </ul>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <button onClick={()=>props.changeFilter('all')}>All</button>
+                <button onClick={()=>props.changeFilter('active')}>Active</button>
+                <button onClick={()=>props.changeFilter('completed')}>Completed</button>
             </div>
         </div>
     );
