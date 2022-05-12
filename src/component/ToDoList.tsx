@@ -12,6 +12,7 @@ interface IProps {
     tasks: Array<ITasks>
     removeTask: (id: number) => void
     changeFilter: (value: FilterType) => void
+    setTask: () => void
 };
 
 function ToDolist(props: IProps) {
@@ -32,15 +33,15 @@ function ToDolist(props: IProps) {
             <h3>{props.titleName}</h3>
             <div>
                 <input type="text" aria-label="Search" />
-                <button>+</button>
+                <button onClick={() => props.setTask()}>+</button>
             </div>
             <ul>
                 {itemList}
             </ul>
             <div>
-                <button onClick={()=>props.changeFilter('all')}>All</button>
-                <button onClick={()=>props.changeFilter('active')}>Active</button>
-                <button onClick={()=>props.changeFilter('completed')}>Completed</button>
+                <button onClick={() => props.changeFilter('all')}>All</button>
+                <button onClick={() => props.changeFilter('active')}>Active</button>
+                <button onClick={() => props.changeFilter('completed')}>Completed</button>
             </div>
         </div>
     );

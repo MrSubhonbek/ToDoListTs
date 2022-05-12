@@ -1,4 +1,3 @@
-import { type } from 'os';
 import React, { useState } from 'react';
 import './App.css';
 import ToDolist from './component/ToDoList';
@@ -21,6 +20,12 @@ function App() {
         setTasks(filterTasks)
     }
     
+    function setTask(){
+        let task = {id:5, title: "newString", isDone: false}
+        let newTasks = [task, ...tasks]
+        setTasks(newTasks)
+    }
+
     if(filter === 'completed') {
         filterTasks = tasks.filter(task => task.isDone === true)
     }
@@ -37,6 +42,7 @@ function App() {
                 tasks={filterTasks}
                 removeTask={removeTask}
                 changeFilter = {changeFilter}
+                setTask={setTask}
             />
         </div>
     );
