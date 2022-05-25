@@ -1,0 +1,30 @@
+​.error {
+    border: red 10px solid;
+}
+
+.errorMessage {
+    color: red;
+}
+
+​.activeFilter {
+    background-color: aquamarine;
+    width: 100%;
+}
+
+.isDone {
+    opacity: 0.5;
+}
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper button {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+}
