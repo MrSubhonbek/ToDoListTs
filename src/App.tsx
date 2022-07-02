@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import { ITasks, ToDoList } from './component/ToDoList';
+import { ITasks, ToDoList } from './components/ToDoList';
 import { v4 as uuidv4 } from 'uuid';
+import { InputForm } from './components/InputForm/InputForm';
 
 export type FilterType = 'active' | 'all' | 'completed'
 
@@ -51,8 +52,6 @@ function App() {
         setTasks({ ...tasks })
     }
 
-
-
     const changeStatusTask = (id: string, isDone: boolean, toDoListID: string) => {
         let task = tasks[toDoListID].find(t => t.id === id)
         if (task) {
@@ -74,9 +73,23 @@ function App() {
         delete tasks[_id]
         setTasks({ ...tasks })
     }
-
+    function addToDoList (title:string){
+        const toDoListId = uuidv4();
+        let toDoList:TodoListType = {
+            _id: toDoListId,
+            title: title,
+            filter: 'all'
+        }
+        setToDoLists([toDoList, ...toDoLists])
+        setTasks({
+            ...tasks,
+            [toDoListId]:[]
+        })
+    }
+    
     return (
         <div className='App'>
+            <InputForm setItem={addToDoList} />
             {
                 toDoLists.map((element) => {
                     let filterTasks = tasks[element._id];
