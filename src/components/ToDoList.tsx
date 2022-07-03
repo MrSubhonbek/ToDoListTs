@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FilterType } from "../App";
 import { InputForm } from "./InputForm/InputForm";
+import { SpanEditForm } from "./SpanEditForm/SpanEditForm";
 import s from './ToDoList.module.css'
 export interface ITasks {
     id: string,
@@ -15,9 +16,11 @@ interface IProps {
     tasks: Array<ITasks>
     removeTasks: (toDoListID: string) => void
     removeTask: (id: string, toDoListID: string) => void
+    renameTasks:(text:string, _id: string) => void
     changeFilter: (value: FilterType, _id: string) => void
     setTask: (title: string, toDoListID: string) => void
     changeStatusTask: (id: string, isDone: boolean, toDoListID: string) => void
+    changeTitleTask:(id: string, text: string, toDoListID: string) => void
 };
 
 
@@ -25,10 +28,13 @@ interface IProps {
 export function ToDoList(props: IProps) {
 
     const itemList = props.tasks.map((element) => {
+        const onChangeTitleTask = (text:string) =>{
+            props.changeTitleTask(element.id, text, props.id)
+        }
         return (
             <li key={element.id} className={element.isDone ? s.isDone : ''}>
                 <input onClick={() => props.changeStatusTask(element.id, !element.isDone, props.id)} type="checkbox" checked={element.isDone} />
-                <span>{element.title}</span>
+                <SpanEditForm text={element.title} onChange={onChangeTitleTask}/>
                 <button onClick={() => props.removeTask(element.id, props.id)}>X</button>
             </li>
         );
@@ -36,6 +42,9 @@ export function ToDoList(props: IProps) {
 
     const addTask = (title:string)=>{
         props.setTask(title, props.id)
+    }
+    const reNameTitleTodoList = (title:string) =>{
+        props.renameTasks(title, props.id);
     }
 
     const onClickAllHandler = () => props.changeFilter('all', props.id)
@@ -46,7 +55,7 @@ export function ToDoList(props: IProps) {
     return (
         <div>
             <div className={s.wrapper}>
-                <h3>{props.titleName}</h3>
+                <SpanEditForm text={props.titleName} onChange = {reNameTitleTodoList}/>
                 <button onClick={onClickRemoveTasks}>X</button>
             </div>
             <InputForm setItem={addTask} />
